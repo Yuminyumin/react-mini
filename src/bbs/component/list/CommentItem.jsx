@@ -21,7 +21,11 @@ const ContentText = styled.p`
 `;
 
 function CommentItem(props) {
-
+    return(
+        <Wrapper>
+            <ContentText>댓글 내용 출력</ContentText>
+        </Wrapper>
+    );
 }
 
 export default CommentItem;
