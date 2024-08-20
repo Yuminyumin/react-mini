@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./bbs/component/pages/HomePage";
 import BbsWriter from "./bbs/component/pages/BbsWritePage";
 import BbsView from "./bbs/component/pages/BbsViewPage";
+import BbsUpdate from "./bbs/component/pages/BbsUpdatePage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/bbs-write" element={<BbsWriter />}></Route>
         <Route path="/bbs-view/:id" element={<BbsView />}></Route>
+        <Route path="/bbs-update/" element={<BbsUpdate />}></Route>
       </Routes>
     </BrowserRouter>
   );

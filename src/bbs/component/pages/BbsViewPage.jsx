@@ -1,12 +1,10 @@
 import styled                     from "styled-components";
 import Button                     from "../ui/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import { Navigate }               from "react-router-dom";
 import { useEffect, useState }    from "react";
 import axios                      from "axios";
 import TextInput from "../ui/TextInput";
 import CommentList from "../list/CommentList";
-import CommentItem from "../list/CommentItem";
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -48,7 +46,9 @@ function BbsViewPage(props) {
     const {id} = useParams();
     const [bbs, setBbs] = useState({});
     const [comment, setComment] = useState('');
+    const [comments, setComments] = useState([]);
     const navigate = useNavigate();
+
 
     const backHandler = () =>{
         navigate('/');
@@ -56,7 +56,17 @@ function BbsViewPage(props) {
 
     useEffect(()=>{
         getBbs();
+        getComments();
     }, []);
+    const getComments = async () =>{
+        try{
+            const response = await axios.get(`http://localhost:8000/comments?bbsId=${id}`);
+            console.log(response.data.length);
+            setComments(response.data);
+        }catch (error) {
+            console.log(error);
+        }
+    }
     const getBbs = async() => {
         try{
             const response = await axios.get(`http://localhost:8000/bbs/${id}`);
@@ -72,16 +82,32 @@ function BbsViewPage(props) {
     }
     const commentHandler = async (bbsId, content) => {
         console.log("debug >>>  comment btn click", bbsId, content);
-        const data = {
-            id : Date.now(),
-            content : content,
-            bbsId : bbsId
-        };
+        if(content == ''){
+            alert('타임라인을 작성해 주세요!!')
+        } else{
+            const data = {
+                id : Date.now(),
+                content : content,
+                bbsId : bbsId
+            };
+            try{
+                const response = await axios.post("http://localhost:8000/comments/",data);
+                console.log("debug >>> axios get response data,", response.data);
+                alert("comment 등록 완료!!")
+                setComment('');
+                getComments();
+            }catch (err){
+                console.log(err);
+            }
+        }
+    }
+    const remveBbs = async (bbsId) => {
+        console.log("remove btn click");
         try{
-            const response = await axios.post("http://localhost:8000/comments/",data);
+            const response = await axios.delete(`http://localhost:8000/bbs/${bbsId}`);
             console.log("debug >>> axios get response data,", response.data);
-            alert("comment 등록 완료!!")
-            setComment('');
+            alert("bbs 삭제 완료!!")
+            navigate("/");
         }catch (err){
             console.log(err);
         }
@@ -96,6 +122,16 @@ function BbsViewPage(props) {
                 <PostContainer>
                 <TitleText>{bbs.title}</TitleText>
                 <ContentText>{bbs.content}</ContentText>
+                {/*
+                1. 버튼 클릭시 수정페이지(BbsUpdatePage.jsx)로 이동(Router - 'bbs-update')
+                2. 페이지 화면구성은 WritePage와 동일하기 구성하되 데이터 출력이 되어진 상태
+                3. 데이터 변경이 되었을 때만 수정완료 버튼 활성화
+                4. 수정완료 후에는 Home으로 이동
+                */}
+                <Button title = "게시글 수정하기"/>
+                &nbsp;&nbsp;&nbsp;
+                <Button title = "게시글 삭제하기"
+                        onClick = {()=>remveBbs(bbs.id)}/>
             </PostContainer>
 
             <CommentLabel>타임라인</CommentLabel>
@@ -109,6 +145,9 @@ function BbsViewPage(props) {
                 title="타임라인 등록하기"
                 onClick={()=>commentHandler(bbs.id, comment)}/>
             <p />
+            <CommentList
+                data={comments}/>
+
 
             </Container>
         </Wrapper>
