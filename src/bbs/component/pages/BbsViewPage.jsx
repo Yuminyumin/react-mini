@@ -112,6 +112,11 @@ function BbsViewPage(props) {
             console.log(err);
         }
     }
+    const updateHandler = () =>{
+        if(window.confirm("수정페이지로 이동하시겠습니까?")){
+            navigate('/bbs-update',{state : {id : id}});
+        }
+    }
     return (
         <Wrapper>
             <Container>
@@ -128,7 +133,8 @@ function BbsViewPage(props) {
                 3. 데이터 변경이 되었을 때만 수정완료 버튼 활성화
                 4. 수정완료 후에는 Home으로 이동
                 */}
-                <Button title = "게시글 수정하기"/>
+                <Button title = "게시글 수정하기"
+                        onClick = {updateHandler}/>
                 &nbsp;&nbsp;&nbsp;
                 <Button title = "게시글 삭제하기"
                         onClick = {()=>remveBbs(bbs.id)}/>

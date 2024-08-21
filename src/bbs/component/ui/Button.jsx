@@ -11,9 +11,9 @@ const StyledButton = styled.button`
 
 `
 function Button(props) {
-    const { title, onClick } = props ;
+    const { title, onClick, disabled } = props ;
     return(
-        <StyledButton onClick={onClick}>{title || "BUTTON"}</StyledButton>
+        <StyledButton onClick={onClick} disabled={disabled}>{title || "BUTTON"}</StyledButton>
     );
 }
 
