@@ -2,9 +2,10 @@ import styled                     from "styled-components";
 import Button                     from "../ui/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState }    from "react";
-import axios                      from "axios";
+// import axios                      from "axios";
 import TextInput from "../ui/TextInput";
 import CommentList from "../list/CommentList";
+import api from '../api/axios.js';
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -60,7 +61,7 @@ function BbsViewPage(props) {
     }, []);
     const getComments = async () =>{
         try{
-            const response = await axios.get(`http://localhost:8000/comments?bbsId=${id}`);
+            const response = await api.get(`comments?bbsId=${id}`);
             console.log(response.data.length);
             setComments(response.data);
         }catch (error) {
@@ -69,7 +70,7 @@ function BbsViewPage(props) {
     }
     const getBbs = async() => {
         try{
-            const response = await axios.get(`http://localhost:8000/bbs/${id}`);
+            const response = await api.get(`bbs/${id}`);
             console.log(response.data);
             setBbs(response.data);
         }catch (error) {
@@ -91,7 +92,7 @@ function BbsViewPage(props) {
                 bbsId : bbsId
             };
             try{
-                const response = await axios.post("http://localhost:8000/comments/",data);
+                const response = await api.post("comments/",data);
                 console.log("debug >>> axios get response data,", response.data);
                 alert("comment 등록 완료!!")
                 setComment('');
@@ -104,7 +105,7 @@ function BbsViewPage(props) {
     const remveBbs = async (bbsId) => {
         console.log("remove btn click");
         try{
-            const response = await axios.delete(`http://localhost:8000/bbs/${bbsId}`);
+            const response = await api.delete(`bbs/${bbsId}`);
             console.log("debug >>> axios get response data,", response.data);
             alert("bbs 삭제 완료!!")
             navigate("/");

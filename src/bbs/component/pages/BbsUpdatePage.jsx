@@ -3,8 +3,10 @@ import TextInput       from "../ui/TextInput";
 import { useEffect, useState }    from "react";
 import Button          from "../ui/Button";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios           from "axios";
+// import axios           from "axios";
 import _               from 'lodash';
+import api from '../api/axios.js';
+
 const Wrapper = styled.div`
     padding: 16px;
     width: calc(100% - 32px);
@@ -53,7 +55,7 @@ function BbsUpdatePage(props) {
     })
     const getBbs = async () => {
         try{
-            const response = await axios.get(`http://localhost:8000/bbs/${bbsId}`);
+            const response = await api.get(`bbs/${bbsId}`);
             console.log("debug >>> axios get response data , " , response.data); 
             
             setBbs({...response.data});
@@ -85,7 +87,7 @@ function BbsUpdatePage(props) {
             content : content 
         }
         try{
-            const response = await axios.patch(`http://localhost:8000/bbs/${bbsId}` , data );
+            const response = await api.patch(`bbs/${bbsId}` , data );
             console.log("debug >>> axios patch response data , " , response.data); 
             alert("수정이 완료되었습니다.");
             navigate("/"); 

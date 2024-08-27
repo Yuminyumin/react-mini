@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Button from '../ui/Button';
 import { useNavigate } from 'react-router-dom';
 import BbsList from '../list/BbsList';
-import axios from 'axios';
+// import axios from 'axios';
+import api from '../api/axios.js';
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -33,7 +34,7 @@ function HomePage() {
 
     const getList = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/bbs");
+            const response = await api.get("bbs");
             setList(response.data);
         } catch (error) {
             console.error(error);
