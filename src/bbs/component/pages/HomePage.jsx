@@ -32,9 +32,19 @@ function HomePage() {
         getList();
     },[]);
 
+    // const getList = async () => {
+    //     try {
+    //         const response = await api.get("bbs");
+    //         setList(response.data);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+
+    //spring version
     const getList = async () => {
         try {
-            const response = await api.get("bbs");
+            const response = await api.get("bbs/index");
             setList(response.data);
         } catch (error) {
             console.error(error);

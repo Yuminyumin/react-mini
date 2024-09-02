@@ -49,7 +49,7 @@ function BbsWritePage(props) {
         }
         try{
             const response = await api.post("bbs",data);
-            console.log(response.data);
+            console.log("debug >>> axios post response data, ",response.data);
             alert("글 작성 완료하고 홈으로 이동합니다.");
             navigate("/");
         } catch (error) {

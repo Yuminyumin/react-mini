@@ -14,10 +14,12 @@ const Wrapper = styled.div`
     }
 `;
 
-function BbsList(props) { 
+function BbsList(props) {
+    const data = Array.isArray(props.data) ? props.data : [];
+    
     return (
         <Wrapper>
-            {props.data.map((bbs) => (
+            {data.map((bbs) => (
                 <BbsItem key={bbs.id} data={bbs} />
             ))}
         </Wrapper>
