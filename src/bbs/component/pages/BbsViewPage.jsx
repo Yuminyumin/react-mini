@@ -57,7 +57,7 @@ function BbsViewPage(props) {
 
     useEffect(()=>{
         getBbs();
-        getComments();
+        // getComments();
     }, []);
     const getComments = async () =>{
         try{
@@ -68,11 +68,26 @@ function BbsViewPage(props) {
             console.log(error);
         }
     }
+    // json-server version
+    // const getBbs = async() => {
+    //     try{
+    //         const response = await api.get(`bbs/${id}`);
+    //         console.log(response.data);
+    //         setBbs(response.data);
+    //     }catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    // spring version
+    // controller - service - mapper 순서대로 구현하고 디버그 확인하기
     const getBbs = async() => {
         try{
-            const response = await api.get(`bbs/${id}`);
-            console.log(response.data);
+            const response = await api.get(`bbs/view/${id}`);
+            console.log("debug >>> axios get response data ,",response.data);
+
             setBbs(response.data);
+            setComments(response.data.comments);
         }catch (error) {
             console.log(error);
         }

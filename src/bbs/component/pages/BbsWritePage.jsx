@@ -48,10 +48,15 @@ function BbsWritePage(props) {
             content : content
         }
         try{
-            const response = await api.post("bbs",data);
-            console.log("debug >>> axios post response data, ",response.data);
-            alert("글 작성 완료하고 홈으로 이동합니다.");
-            navigate("/");
+            const response = await api.post("bbs/save",data);
+            console.log("debug >>> axios post response data, ", data);
+            if(response.status == 204){
+                alert("글 작성 완료하고 홈으로 이동합니다.");
+                navigate("/");
+            } else {
+                alert("데이터 저장시 문제발생!!");
+            }
+           
         } catch (error) {
             console.log(error);
         }
