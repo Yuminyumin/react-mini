@@ -53,9 +53,25 @@ function BbsUpdatePage(props) {
     useEffect(() => {
         setDisabled(_.isEqual(bbs, originalbbs));
     })
+    // json-server version
+    // const getBbs = async () => {
+    //     try{
+    //         const response = await api.get(`bbs/${bbsId}`);
+    //         console.log("debug >>> axios get response data , " , response.data); 
+            
+    //         setBbs({...response.data});
+    //         setOriginalbbs({...response.data});
+    //         setTitle(response.data.title);
+    //         setContent(response.data.content); 
+    //     }catch( err ) { 
+    //         console.log( err );
+    //     }
+    // };
+
+    //spring version
     const getBbs = async () => {
         try{
-            const response = await api.get(`bbs/${bbsId}`);
+            const response = await api.get(`bbs/view/${bbsId}`);
             console.log("debug >>> axios get response data , " , response.data); 
             
             setBbs({...response.data});
@@ -72,22 +88,43 @@ function BbsUpdatePage(props) {
         setTitle(e.target.value) ;
         setBbs();
     }
+
     const contentHandler = (e) => {
         setContent(e.target.value) ;
         // setDisabled(false);
     }
+
     const cancelHandler = () => {
         alert("글 수정을 취소하고 홈으로 이동합니다.");
         navigate("/");
     }
+    // json-server version
+    // const updateHandler = async () => {
+    //     console.log("debug >>> update handler click");
+    //     const data = {
+    //         title : title ,
+    //         content : content 
+    //     }
+    //     try{
+    //         const response = await api.patch(`bbs/${bbsId}` , data );
+    //         console.log("debug >>> axios patch response data , " , response.data); 
+    //         alert("수정이 완료되었습니다.");
+    //         navigate("/"); 
+    //     }catch( err ) {
+    //         console.log( err );
+    //     }
+    // }
+
+    // spring version
     const updateHandler = async () => {
         console.log("debug >>> update handler click");
         const data = {
+            id    : bbsId,
             title : title ,
             content : content 
         }
         try{
-            const response = await api.patch(`bbs/${bbsId}` , data );
+            const response = await api.put(`bbs/update` , data );
             console.log("debug >>> axios patch response data , " , response.data); 
             alert("수정이 완료되었습니다.");
             navigate("/"); 
