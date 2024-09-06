@@ -6,6 +6,8 @@ import Home from "./bbs/component/pages/HomePage";
 import BbsWriter from "./bbs/component/pages/BbsWritePage";
 import BbsView from "./bbs/component/pages/BbsViewPage";
 import BbsUpdate from "./bbs/component/pages/BbsUpdatePage";
+import ForecastPage from "./bbs/component/pages/ForecastPage";
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/bbs-write" element={<BbsWriter />}></Route>
         <Route path="/bbs-view/:id" element={<BbsView />}></Route>
         <Route path="/bbs-update" element={<BbsUpdate />}></Route>
+        <Route path="/forecast-write" element={<ForecastPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

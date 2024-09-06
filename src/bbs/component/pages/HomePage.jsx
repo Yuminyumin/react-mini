@@ -59,6 +59,12 @@ function HomePage() {
                     onClick={()=>{
                         navigate("bbs-write");
                     }} />
+                    &nbsp;&nbsp;&nbsp;
+                    <Button 
+                    title="날씨예보"
+                    onClick={()=>{
+                        navigate("forecast-write");
+                    }} />
                     <p/>
                 <BbsList data={list}/>
             </Container>
