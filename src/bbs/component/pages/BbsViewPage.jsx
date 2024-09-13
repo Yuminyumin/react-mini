@@ -235,23 +235,23 @@ function BbsViewPage(props) {
                 &nbsp;&nbsp;&nbsp;
                 <Button title = "게시글 삭제하기"
                         onClick = {()=>removeBbs(bbs.id)}/>
-            </PostContainer>
+                </PostContainer>
 
-            <CommentLabel>타임라인</CommentLabel>
-            <TextInput
-                height={20}
-                value={comment}
-                onChange={textHandler}/>
-            <p />
-
-            <Button
-                title="타임라인 등록하기"
-                onClick={()=>commentHandler(bbs.id, comment)}/>
-            <p />
-            <CommentList
-                data={comments}/>
-
-
+                <CommentLabel>타임라인</CommentLabel>
+                <TextInput
+                    height={20}
+                    value={comment}
+                    onChange={textHandler}/>
+                <p />
+                    
+                <Button
+                    title="타임라인 등록하기"
+                    onClick={()=>commentHandler(bbs.id, comment)}/>
+                <p />
+                <CommentList
+                    data={comments}/>
+    
+                    
             </Container>
         </Wrapper>
     );
